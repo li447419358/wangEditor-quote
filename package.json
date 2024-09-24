@@ -1,0 +1,31 @@
+{
+    "name": "wangeditor-quote",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "IM quotemessage",
+    "main": "dist/index.js",
+    "files": [
+        "src/*"
+    ],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "@wangEditor",
+        "quoteMessage"
+    ],
+    "author": "dengxi",
+    "license": "ISC",
+    "dependencies": {
+        "@wangeditor/editor": "^5.1.23",
+        "snabbdom": "^3.6.2"
+    },
+    "devDependencies": {
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "rollup": "^4.22.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "ts-loader": "^9.5.1",
+        "tslib": "^2.7.0"
+    }
+}
