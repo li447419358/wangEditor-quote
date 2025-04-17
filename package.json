@@ -8,7 +8,10 @@
         "src/*"
     ],
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "rollup -c",
+        "dev": "rollup -c -w"
+
     },
     "keywords": [
         "@wangEditor",
@@ -26,6 +29,7 @@
         "rollup": "^4.22.0",
         "rollup-plugin-terser": "^7.0.2",
         "ts-loader": "^9.5.1",
-        "tslib": "^2.7.0"
+        "tslib": "^2.7.0",
+        "typescript": "^5.0.0"
     }
 }

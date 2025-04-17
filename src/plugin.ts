@@ -8,7 +8,7 @@ const withQuote = <T extends IDomEditor>(editor: T): T => {
 	newEditor.isInline = (elem) => {
 		const type = DomEditor.getNodeType(elem);
 		if (type === 'quoteMessage') {
-			return true;
+			return false;
 		}
 		return isInline(elem);
 	};

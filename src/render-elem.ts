@@ -11,8 +11,8 @@ const renderQuote = (elemNode: any, children, editor): VNode => {
 	const { src, name = '', info = {} } = elemNode || {};
 	let childrenList;
 	// 人名
-	const childName = h('p', { style: { fontSize: '14px', fontWeight: 'bold', margin: '0', color: '#5A5A5A' } }, [
-		name,
+	const childName = h('span', { style: { fontSize: '14px', fontWeight: 'bold', margin: '0', color: '#5A5A5A' } }, [
+		name+":",
 	]);
 	if (info.type === 0) {
 		console.log(elemNode, 'ssselemNode');
@@ -30,43 +30,18 @@ const renderQuote = (elemNode: any, children, editor): VNode => {
 			matches.push(match[1]); // 将匹配到的内容添加到数组中
 		}
 		console.log(matches, 'match');
-
-		// let domList = []
-		// matches.forEach(el => {
-		//     const matcheCur = el.match(spangex); // 匹配 <span> 标签中的内容(当前解析后有span标签均为图片)
-		//     let result = [];
-		//     if (matcheCur) {
-		//         result.push(el.substring(0, matcheCur.index)); // 添加 <span> 标签之前的部分
-		//         result.push(matcheCur[1]); // 添加 <span> 标签中的内容
-		//         result.push(el.substring(matcheCur.index + matcheCur[0].length)); // 添加 <span> 标签之后的部分
-		//     } else {
-		//         result = [el]; // 如果没有匹配到 <span> 标签，直接将整个字符串作为数组元素
-		//     }
-		//     domList = [...domList,...result]
-		// });
 		let domList = matches.map((item) => item.replace(/<span.*?>[图片]<\/span>/g, '[图片]').replace('&nbsp;', ''));
-		// let domList = matches.map((item) => item.replace(/<span.*?>[图片]<\/span>/g, '[图片]'));
-		domList = domList.map((v) => v.replace(/<span[^>]*>/g, '').replace(/<[</span>$]+>/g, '')); // 将所有</span>标签 replace '')
-		// 第一行文字
-		const childContent1 = h(
-			'p',
-			{ style: { margin: '0', textWrap: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' } },
-			[domList[0]],
-		);
-		// 第二行文字/可能不存在
-		const childContent2 = domList[1]
-			? h('p', { style: { margin: '0', textWrap: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' } }, [
-					domList[1],
-				])
-			: null;
-		childrenList = childContent2 ? [childName, childContent1, childContent2] : [childName, childContent1];
+
+		const childContent = h('span', { style: { fontSize: '14px', } }, [
+			domList.join(""),
+		]);
+		//直接拼接
+		childrenList = [childName, childContent];
 	} else {
-		const childContent1 = h(
-			'p',
-			{ style: { margin: '0', textWrap: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' } },
-			[info.messageInfo],
-		);
-		childrenList = [childName, childContent1];
+		const childContent = h('span', { style: { fontSize: '14px', } }, [
+			info.messageInfo,
+		]);
+		childrenList = [childName, childContent];
 	}
 	// 构建 vnode
 	const vnode = h(
@@ -76,9 +51,8 @@ const renderQuote = (elemNode: any, children, editor): VNode => {
 				contentEditable: false, // 不可编辑
 			},
 			style: {
-				width: '99%',
 				display: 'inline-block',
-				borderLeft: '4px solid #c0cfde',
+				// borderLeft: '4px solid #c0cfde',
 				color: '#7b7b7b',
 				marginLeft: '3px',
 				marginRight: '3px',
