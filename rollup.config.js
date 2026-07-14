@@ -3,26 +3,23 @@
  * @Date: 2024-09-20 16:45:26
  * @LastEditors: dengxi
  * @LastEditTime: 2024-09-20 17:23:49
- * @Description: 
+ * @Description:
  */
-import json from '@rollup/plugin-json'
 import typescript from '@rollup/plugin-typescript'
-import { terser } from 'rollup-plugin-terser'
 
 export default {
     input: 'src/index.ts',
     output: {
-        file: './dist/wangeditor-quote.js',
-        format: 'es'
+        file: './dist/quote.js',
+        format: 'es',
+        sourcemap: true,
     },
     plugins: [
-        json(),
-        typescript(),
-        terser({
-            compress: {
-                // 删除console
-                drop_console: true,
-            }
-        })
-    ]
+        typescript({
+            tsconfig: './tsconfig.json',
+            declaration: true,
+        }),
+    ],
+    // 运行时依赖不打入产物，交由消费方安装
+    external: ['@wangeditor/editor', 'snabbdom'],
 }
